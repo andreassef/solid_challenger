@@ -1,0 +1,145 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Register Users API",
+        "description": "This is a API to register users",
+        "version": "1.0.0",
+        "contact": {
+            "email": "super_capivara@rocketseat.com.br"
+        }
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": ["Users"],
+                "summary": "Create a new user",
+                "description": "This route create a new user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "example": {
+                                        "name": "name sample",
+                                        "email": "email sample"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create a new Category"
+                    },
+                    "400": "User yet exists"
+                }
+            },
+            "get": {
+                "tags": ["Users"],
+                "summary": "List of all users",
+                "description": "Show all users registered in this api",
+                "parameters": [{
+                    "in": "header",
+                    "name": "user_id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "required": true,
+                    "description": "Numeric ID of user to get"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Get user's a list of users"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                } 
+            }
+        },
+        "/users/{user_id}": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "Get informations about profile",
+                "description": "Show user's profile informations",
+                "parameters": [{
+                    "in": "path",
+                    "name": "user_id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "required": true,
+                    "description": "Numeric ID of user to get"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "admin": {
+                                            "type": "boolean"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "date"
+                                        },
+                                        "updated_at": {
+                                            "type": "date"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                } 
+            }
+        },
+        "/users/{user_id}/admin": {
+            "patch": {
+                "tags": ["Users"],
+                "summary": "Turn user admin",
+                "description": "Turn a user a admin, from now on a user being a admin can list all registers",
+                "parameters": [{
+                    "in": "path",
+                    "name": "user_id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "required": true,
+                    "description": "Numeric ID of user to get"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Get user's profile information"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                } 
+            }
+        }
+    }
+}
